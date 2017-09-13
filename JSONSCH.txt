@@ -1,0 +1,17 @@
+{
+  "Id": 0,
+  "IdFornecedor": 0,
+  "DataOrcamento": "2017-08-23T03:42:22.479Z",
+  "Status": "string",
+  "Itens": [
+    {
+      "Id": 0,
+      "IdProduto": 0,
+      "IdOperacao": 0,
+      "TipoOperacao": "string",
+      "Quantidade": 0,
+      "CustoUnitario": 0,
+      "UnidadeMedida": "string"
+    }
+  ]
+}

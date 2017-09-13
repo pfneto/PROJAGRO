@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Sistema Agro";
+}
+<h2>Sistema Agro</h2>
+<form method="post" action="@Url.Action("Index","Login")">
+    <input type="text" name="Username" value="" /><br />
+    <input type="password" name="Password" value="" /><br />
+    <input type="submit" value="Logar" />
+</form>
+@if (User.Identity.IsAuthenticated)
+{
+    <h1>Autenticado</h1>
+    <h3>Token: @User.Identity.Name</h3>
+    <a href="@Url.Action("Logout", "Login")">Sair</a>
+}

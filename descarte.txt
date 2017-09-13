@@ -1,0 +1,13 @@
+{
+  "Id": 0,
+  "IdProduto": 0,
+  "IdFornecedor": 0,
+  "Descricao": "string",
+  "Tipo": "string",
+  "Quantidade": 0,
+  "UnidadeMedida": "string",
+  "DataValidade": "2017-08-18T02:56:30.585Z",
+  "Volumes": 0,
+  "SituacaoEnvio": "string",
+  "Email": "string"
+}
