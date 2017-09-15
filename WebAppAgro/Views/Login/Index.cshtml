@@ -1,16 +1,48 @@
 ﻿
 @{
     ViewBag.Title = "Sistema Agro";
+
+
+
+
+
 }
-<h2>Sistema Agro</h2>
-<form method="post" action="@Url.Action("Index","Login")">
-    <input type="text" name="Username" value="" /><br />
-    <input type="password" name="Password" value="" /><br />
-    <input type="submit" value="Logar" />
-</form>
-@if (User.Identity.IsAuthenticated)
-{
-    <h1>Autenticado</h1>
-    <h3>Token: @User.Identity.Name</h3>
-    <a href="@Url.Action("Logout", "Login")">Sair</a>
-}
+<style>
+    body.center-form {
+        min-height: 100vh;
+    }
+
+    div.center-form {
+        position: relative;
+        min-height: 100vh;
+    }
+
+        div.center-form > form {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+        }
+</style>
+<body class="center-form">
+    <div class="center-form">
+
+       
+        <form method="post" action="@Url.Action("Index","Login")">
+            <h2>Sistema Agro</h2><br />
+            <h6>Usuário</h6>
+            <input type="text" name="Username" value="" /> <br />
+            <h6>Senha</h6>
+            <input type="password" name="Password" value="" /> <br /><br />
+
+            <input type="submit" value="Entrar" />
+        </form>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <h1>Autenticado</h1>
+            <h3>Token: @User.Identity.Name</h3>
+            <a href="@Url.Action("Logout", "Login")">Sair</a>
+        }
+    </div>
+</body>

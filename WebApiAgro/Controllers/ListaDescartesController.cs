@@ -15,6 +15,8 @@ using Newtonsoft.Json;
 using System.Xml.Serialization;
 using System.Xml;
 using System.IO;
+using System.Text;
+using RestSharp;
 
 namespace WebApiAgro.Controllers
 {
@@ -62,40 +64,69 @@ namespace WebApiAgro.Controllers
         }
 
         // PUT: api/ListaDescartes/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutListaDescarte(int id, ListaDescarte listaDescarte)
+         [ResponseType(typeof(void))]
+         public async Task<IHttpActionResult> PutListaDescarte(int id, ListaDescarte listaDescarte)
+         {
+             if (!ModelState.IsValid)
+             {
+                 return BadRequest(ModelState);
+             }
+
+             if (id != listaDescarte.Id)
+             {
+                 return BadRequest();
+             }
+
+             db.Entry(listaDescarte).State = EntityState.Modified;
+
+             try
+             {
+                 await db.SaveChangesAsync();
+             }
+             catch (DbUpdateConcurrencyException)
+             {
+                 if (!ListaDescarteExists(id))
+                 {
+                     return NotFound();
+                 }
+                 else
+                 {
+                     throw;
+                 }
+             }
+
+             return StatusCode(HttpStatusCode.NoContent);
+         }
+        
+        // PUT: api/ListaDescartes/5
+        // [ResponseType(typeof(void))]
+        public async Task<HttpResponseMessage> PutRecebimento(int id, string SituacaoEnvio)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != listaDescarte.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(listaDescarte).State = EntityState.Modified;
-
             try
             {
-                await db.SaveChangesAsync();
+                var httpClient = new HttpClient();
+
+                var json = await httpClient.GetStringAsync("http://webapiagro.azurewebsites.net/api/ListaDescartes/" + id.ToString());
+
+                var listadescarte = JsonConvert.DeserializeObject<ListaDescarte>(json.Replace("SEPARADO",SituacaoEnvio));
+
+                // var model 
+                var client = new RestClient("http://webapiagro.azurewebsites.net/");
+
+
+                var request = new RestRequest("api/ListaDescartes", Method.PUT);
+                request.AddHeader("Content-type", "application/json");
+                request.AddParameter("application/json; charset=utf-8", listadescarte);
+
+                IRestResponse response = client.Execute(request);
+
+                return Request.CreateResponse(HttpStatusCode.OK, listadescarte);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!ListaDescarteExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
-
-            return StatusCode(HttpStatusCode.NoContent);
         }
-
         // POST: api/ListaDescartes
         [ResponseType(typeof(ListaDescarte))]
         public async Task<IHttpActionResult> PostListaDescarte(ListaDescarte listaDescarte)
@@ -142,3 +173,4 @@ namespace WebApiAgro.Controllers
         }
     }
 }
+ 

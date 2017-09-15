@@ -433,9 +433,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Properties\PublishProfiles\WebApiAgro - Web Deploy.pubxml" />
   </ItemGroup>
   <PropertyGroup>

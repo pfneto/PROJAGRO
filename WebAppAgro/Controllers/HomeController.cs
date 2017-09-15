@@ -9,9 +9,9 @@ namespace WebAppAgro.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult AcessoNegado()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Usuário não Autorizado !!";
 
             return View();
         }

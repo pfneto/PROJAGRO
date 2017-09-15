@@ -30,11 +30,18 @@ namespace WebAppAgro.Controllers
 
             if (!String.IsNullOrEmpty(token))
             {
-                FormsAuthentication.SetAuthCookie(token, false);                
+                FormsAuthentication.SetAuthCookie(token, false);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                FormsAuthentication.SignOut();
+                return RedirectToAction("AcessoNegado", "Home");
+                FormsAuthentication.RedirectToLoginPage();
             }
 
 
-            return RedirectToAction("Index","Home");
+            
         }
 
         public ActionResult Logout()

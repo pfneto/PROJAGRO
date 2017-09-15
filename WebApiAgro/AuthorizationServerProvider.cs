@@ -27,7 +27,7 @@ namespace WebApiAgro
                 var user = context.UserName;
                 var password = context.Password;
 
-                if (user != "pfneto" || password != "pfneto")
+                if ((user != "pfneto" || password != "pfneto") & (user != "ClienteTeste" || password != "ClienteTeste") & (user != "FornecedorTeste" || password != "FornecedorTeste"))
                 {
                     context.SetError("invalid_grant", "Usuário ou senha inválidos");
                     return;

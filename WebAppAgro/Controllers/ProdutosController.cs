@@ -41,7 +41,7 @@ namespace WebAppAgro.Controllers
 
             return View(ProdutoList);
         }
-       [HttpGet] 
+       [HttpPut] 
        public async Task<ActionResult>Edit(int? id)
         {
 
