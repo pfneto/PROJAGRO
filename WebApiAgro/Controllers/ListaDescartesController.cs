@@ -41,8 +41,9 @@ namespace WebApiAgro.Controllers
             foreach  (ListaDescarte reg in Lista)
             {
                // var ListaXml = GetXMLFromObject(reg);
-                sucesso = reg.EnviaEmailDescarte();
-                
+                sucesso = reg.EnviaEmailDescarte($"http://webapiagro.azurewebsites.net/api/ListaDescartes/{reg.Id}?SituacaoEnvio=RECEBIDO");
+
+
             }
 
             return sucesso;
@@ -112,16 +113,6 @@ namespace WebApiAgro.Controllers
                 var listadescarte = JsonConvert.DeserializeObject<ListaDescarte>(json.Replace("SEPARADO",SituacaoEnvio));
 
                 
-                // var model 
-                // var client = new RestClient("http://webapiagro.azurewebsites.net/");
-              //  var client = new RestClient("http://localhost:58364/");
-
-
-//                var request = new RestRequest($"api/ListaDescartes/{id.ToString()}", Method.PUT);
-  //              request.AddHeader("Content-type", "application/json");
-    //            request.AddParameter("application/json; charset=utf-8", json.Replace("SEPARADO", SituacaoEnvio));
-
-      //          IRestResponse response = client.Execute(request);
                 HttpResponseMessage response = await httpClient.PutAsJsonAsync($"http://lwebapiagro.azurewebsites.net/api/ListaDescartes/{id.ToString()}", listadescarte);
 
                 return Request.CreateResponse(HttpStatusCode.OK, listadescarte);

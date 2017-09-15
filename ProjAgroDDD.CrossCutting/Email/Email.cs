@@ -25,8 +25,8 @@ namespace EmailController
             try
             {
                 SmtpClient oSmtp = new SmtpClient();
-                NetworkCredential basicCredential =   new NetworkCredential("pfneto@gmail.com", "040982070680");
-                oSmtp.Host = "smtp.gmail.com";
+                NetworkCredential basicCredential =   new NetworkCredential("pfneto@hotmail.com", "jcdes01JC#");
+                oSmtp.Host = "smtp.live.com";
                 oSmtp.Port = 587;
                 oSmtp.EnableSsl = true;
                 oSmtp.Credentials = basicCredential;
