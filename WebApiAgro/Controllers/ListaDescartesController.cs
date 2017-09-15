@@ -62,7 +62,7 @@ namespace WebApiAgro.Controllers
 
             return Ok(listaDescarte);
         }
-
+        
         // PUT: api/ListaDescartes/5
          [ResponseType(typeof(void))]
          public async Task<IHttpActionResult> PutListaDescarte(int id, ListaDescarte listaDescarte)
@@ -98,27 +98,31 @@ namespace WebApiAgro.Controllers
              return StatusCode(HttpStatusCode.NoContent);
          }
         
-        // PUT: api/ListaDescartes/5
-        // [ResponseType(typeof(void))]
-        public async Task<HttpResponseMessage> PutRecebimento(int id, string SituacaoEnvio)
+        [HttpPost]
+        public async Task<HttpResponseMessage> PUTRecebimento(int id, string SituacaoEnvio)
         {
             try
             {
                 var httpClient = new HttpClient();
 
-                var json = await httpClient.GetStringAsync("http://webapiagro.azurewebsites.net/api/ListaDescartes/" + id.ToString());
+                // var json = await httpClient.GetStringAsync("http://webapiagro.azurewebsites.net/api/ListaDescartes/" + id.ToString());
+
+                var json = await httpClient.GetStringAsync($"http://webapiagro.azurewebsites.net/api/ListaDescartes/{id.ToString()}"  );
 
                 var listadescarte = JsonConvert.DeserializeObject<ListaDescarte>(json.Replace("SEPARADO",SituacaoEnvio));
 
+                
                 // var model 
-                var client = new RestClient("http://webapiagro.azurewebsites.net/");
+                // var client = new RestClient("http://webapiagro.azurewebsites.net/");
+              //  var client = new RestClient("http://localhost:58364/");
 
 
-                var request = new RestRequest("api/ListaDescartes", Method.PUT);
-                request.AddHeader("Content-type", "application/json");
-                request.AddParameter("application/json; charset=utf-8", listadescarte);
+//                var request = new RestRequest($"api/ListaDescartes/{id.ToString()}", Method.PUT);
+  //              request.AddHeader("Content-type", "application/json");
+    //            request.AddParameter("application/json; charset=utf-8", json.Replace("SEPARADO", SituacaoEnvio));
 
-                IRestResponse response = client.Execute(request);
+      //          IRestResponse response = client.Execute(request);
+                HttpResponseMessage response = await httpClient.PutAsJsonAsync($"http://lwebapiagro.azurewebsites.net/api/ListaDescartes/{id.ToString()}", listadescarte);
 
                 return Request.CreateResponse(HttpStatusCode.OK, listadescarte);
             }

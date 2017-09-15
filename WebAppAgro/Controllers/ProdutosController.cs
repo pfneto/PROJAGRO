@@ -76,7 +76,7 @@ namespace WebAppAgro.Controllers
             {
                 // HttpResponseMessage response = await json.PostAsJsonAsync("hhttp://webapiagro.azurewebsites.net/api/Produtos", dados);
                 //return response.Content.ReadAsAsync<ActionResult>().Result;
-
+                    
                 string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
                 HttpCookie authCookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
                 FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value); //Decrypt it           
