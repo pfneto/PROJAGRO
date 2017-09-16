@@ -100,7 +100,7 @@ namespace WebApiAgro.Controllers
          }
         
         [HttpPost]
-        public async Task<HttpResponseMessage> PUTRecebimento(int id, string SituacaoEnvio)
+        public async Task<HttpResponseMessage> Recebimento(int id, string SituacaoEnvio)
         {
             try
             {
@@ -113,17 +113,17 @@ namespace WebApiAgro.Controllers
                 var listadescarte = JsonConvert.DeserializeObject<ListaDescarte>(json.Replace("SEPARADO",SituacaoEnvio));
 
                 
-                HttpResponseMessage response = await httpClient.PutAsJsonAsync($"http://lwebapiagro.azurewebsites.net/api/ListaDescartes/{id.ToString()}", listadescarte);
+                HttpResponseMessage response = await httpClient.PutAsJsonAsync($"http://webapiagro.azurewebsites.net/api/ListaDescartes/{id.ToString()}", listadescarte);
 
-                return Request.CreateResponse(HttpStatusCode.OK, listadescarte);
+                return Request.CreateResponse(HttpStatusCode.OK, "Recebimento Confirmado");
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex + "Erro na confirmação do recebimento");
             }
         }
         // POST: api/ListaDescartes
-        [ResponseType(typeof(ListaDescarte))]
+       /* [ResponseType(typeof(ListaDescarte))]
         public async Task<IHttpActionResult> PostListaDescarte(ListaDescarte listaDescarte)
         {
             if (!ModelState.IsValid)
@@ -135,7 +135,7 @@ namespace WebApiAgro.Controllers
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = listaDescarte.Id }, listaDescarte);
-        }
+        }*/
 
         // DELETE: api/ListaDescartes/5
         [ResponseType(typeof(ListaDescarte))]

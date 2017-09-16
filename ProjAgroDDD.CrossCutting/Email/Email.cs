@@ -13,10 +13,7 @@ namespace EmailController
     {
         public static ICredentialsByHost Credential { get; private set; }
 
-        /// <summary>
-        /// Função para notificar erros na aplicação.
-        /// </summary>
-        /// <returns></returns>
+     
         public static bool Send(string remetente, /*List<string> anexos, */string assunto, string mensagem, string destinatarios/*List<string> destinatarios*/)
         {
 
@@ -49,32 +46,23 @@ namespace EmailController
 
                 oMensagem.Body = mensagem;
 
-                // Obtem os anexos contidos em um arquivo arraylist e inclui na mensagem
-              /*  if (anexos.Count > 0)
-                {
-                    foreach (string anexo in anexos)
-                    {
-                        Attachment anexado = new Attachment(anexo, MediaTypeNames.Application.Octet);
-                        oMensagem.Attachments.Add(anexado);
-                    }
-                }
-                */
+
                 oMensagem.SubjectEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
                 oMensagem.BodyEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
 
                 oSmtp.Send(oMensagem);
 
                 result = true;
+            //return result;
 
+               }
+               catch (Exception ex)
+               {
 
-            }
-            catch (Exception)
-            {
+                   result = false;
+               }
 
-                result = false;
-            }
-
-            return result;
+               return result;
+           }
         }
-    }
 }

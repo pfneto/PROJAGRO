@@ -262,9 +262,17 @@
       <Project>{7b07d21e-2f3b-4c07-80de-5120a032b93e}</Project>
       <Name>ProjAgroDDD.Cliente.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjAgroDDD.CrossCutting\ProjAgroDDD.CrossCutting.csproj">
+      <Project>{b83b9d1e-cdae-48d8-96f9-015558275005}</Project>
+      <Name>ProjAgroDDD.CrossCutting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjAgroDDD.Fornecedor.Domain\ProjAgroDDD.Fornecedor.Domain.csproj">
       <Project>{1250293f-cbb4-418c-ae45-d1da1299884f}</Project>
       <Name>ProjAgroDDD.Fornecedor.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjAgroDDD.Produto.Domain\ProjAgroDDD.Produto.Domain.csproj">
+      <Project>{14e11235-53df-4ff2-9483-2feca048cd2b}</Project>
+      <Name>ProjAgroDDD.Produto.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjAgroDDD\ProjAgroDDD.Venda.Domain.csproj">
       <Project>{7cd99e4c-e73a-4acd-861c-257e19f8cbe1}</Project>
