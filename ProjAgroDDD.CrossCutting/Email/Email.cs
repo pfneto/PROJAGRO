@@ -19,20 +19,24 @@ namespace EmailController
 
             bool result = false;
 
-            try
-            {
+            //try
+            //{
                 SmtpClient oSmtp = new SmtpClient();
                 NetworkCredential basicCredential =   new NetworkCredential("pfneto@hotmail.com", "jcdes01JC#");
-                oSmtp.Host = "smtp.live.com";
+                oSmtp.Host = "smtp.outlook.com";
+               // NetworkCredential basicCredential =   new NetworkCredential("pfneto@gmail.com", "040982070680");
+                //oSmtp.Host = "smtp.gmail.com";
                 oSmtp.Port = 587;
                 oSmtp.EnableSsl = true;
-                oSmtp.Credentials = basicCredential;
+            oSmtp.UseDefaultCredentials = false;
+            oSmtp.Credentials = basicCredential;
+               
 
 
 
 
 
-                MailMessage oMensagem = new MailMessage();
+            MailMessage oMensagem = new MailMessage();
 
                oMensagem.From = new MailAddress( remetente);
                // foreach (string destinatario in destinatarios)
@@ -55,12 +59,12 @@ namespace EmailController
                 result = true;
             //return result;
 
-               }
-               catch (Exception ex)
-               {
+              // }
+               //catch (Exception ex)
+               //{
 
-                   result = false;
-               }
+                 //  result = false;
+               //}
 
                return result;
            }

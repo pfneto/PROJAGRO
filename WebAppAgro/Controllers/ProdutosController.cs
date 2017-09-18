@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ProjAgroDDD.Produto.Domain;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -27,12 +28,22 @@ namespace WebAppAgro.Controllers
             var httpClient = new HttpClient();
 
             string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
-            HttpCookie authCookie =HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
-            FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value); //Decrypt it           
 
 
-            httpClient.DefaultRequestHeaders.Add("Authorization", $"bearer {ticket.Name}");
 
+            try
+            {
+                HttpCookie authCookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"bearer {ticket.Name}");
+            }
+            catch
+            {
+                return RedirectToAction("AcessoNegado", "Home");
+            }
+             //Decrypt it           
+                       
+           
             var json = await httpClient.GetStringAsync("http://webapiagro.azurewebsites.net/api/Produtos");
 
             var ProdutoList = JsonConvert.DeserializeObject<IEnumerable<Produto>>(json);

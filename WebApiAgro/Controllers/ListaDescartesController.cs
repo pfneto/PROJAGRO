@@ -32,9 +32,9 @@ namespace WebApiAgro.Controllers
 
 
         // GET: api/ListaDescartes/Separados
-        public bool GetEnviaEmail(string SituacaoEnvio)
+        public string GetEnviaEmail(string SituacaoEnvio)
         {
-            bool sucesso = false;
+            string sucesso = " ";
             List<ListaDescarte> Lista = new List<ListaDescarte>();
             Lista = db.ListaDescarte.ToList<ListaDescarte>();
             

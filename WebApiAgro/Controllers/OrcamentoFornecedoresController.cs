@@ -25,13 +25,14 @@ namespace WebApiAgro.Controllers
           {
               return db.OrcamentoFornecedor;
           }*/
-        public List<OrcamentoFornecedor> GetEnviaOrcamento(string SituacaoEnvio)
+        //public List<OrcamentoFornecedor> GetEnviaOrcamento()
+        public IQueryable<OrcamentoFornecedor> GetEnviaOrcamento()
         {
-           
-            List<OrcamentoFornecedor> Lista = new List<OrcamentoFornecedor>();
-            Lista = db.OrcamentoFornecedor.ToList<OrcamentoFornecedor>();
 
-            foreach (OrcamentoFornecedor reg in Lista)
+            // List<OrcamentoFornecedor> Lista = new List<OrcamentoFornecedor>();
+           // OrcamentoFornecedor Lista = db.OrcamentoFornecedor;//.ToList<OrcamentoFornecedor>();
+
+            foreach (OrcamentoFornecedor reg in db.OrcamentoFornecedor)
             {
                 string jsonString = JsonConvert.SerializeObject( reg,   Formatting.None,     new JsonSerializerSettings()
                             {         ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -47,7 +48,7 @@ namespace WebApiAgro.Controllers
            
 
             }
-            return Lista;
+            return db.OrcamentoFornecedor;
            
 
 

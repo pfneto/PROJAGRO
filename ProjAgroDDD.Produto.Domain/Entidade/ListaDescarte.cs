@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.IO;
+using System.Net;
 
 namespace ProjAgroDDD.Produto.Domain
 {
@@ -30,21 +31,39 @@ namespace ProjAgroDDD.Produto.Domain
         public string Email { get; set; }
         
 
-        public bool EnviaEmailDescarte(string Link_Rec)
+        public string EnviaEmailDescarte(string Link_Rec)
+
         {
-            if (SituacaoEnvio== "SEPARADO")
-
+            try
             {
+                string result=" ";
 
-                
-                return EmailController.Email.Send("pfneto@hotmail.com", $"Descarte de Material {Descricao} {Tipo}", ConvertXmlToHtml(Link_Rec), Email.ToString());
+                if (SituacaoEnvio == "SEPARADO")
 
-            } 
-            else
-            {
-                return false;
-         
-            } 
+                {
+
+
+                    if ( EmailController.Email.Send("pfneto@hotmail.com", $"Descarte de Material {Descricao} {Tipo}", ConvertXmlToHtml(Link_Rec), Email.ToString()))
+                    {
+                        result= "Sucesso";
+                    }
+
+
+
+                }
+                else
+                {
+                    result = "Nenhum Descarte Encontrado";
+
+                }
+                return result;
+            }
+            catch (Exception ex)
+             {
+
+                return ex + "Erro Envio do Email de descarte";
+
+            }
         }
         public string ConvertXmlToHtml(string Link_Rec)
         {
