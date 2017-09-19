@@ -29,9 +29,6 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
         <poll doc:name="Aviso descarte">
             <fixed-frequency-scheduler frequency="30" timeUnit="SECONDS"/>
             <http:request config-ref="HTTP_Request_Configuration" path="/api/ListaDescartes" method="GET" doc:name="HTTP">
-                <http:request-builder>
-                    <http:query-param paramName="SituacaoEnvio" value="SEPARADO"/>
-                </http:request-builder>
             </http:request>
         </poll>
         <logger  level="INFO" doc:name="Logger"/>

@@ -13,6 +13,8 @@ using ProjAgroDDD.Fornecedor.Domain;
 using ProjAgroDDD.Venda.Infra.Data.Context;
 using Newtonsoft.Json;
 using RestSharp;
+using System.Linq;
+
 
 namespace WebApiAgro.Controllers
 {
@@ -20,36 +22,40 @@ namespace WebApiAgro.Controllers
     {
         private ProjAgroContext db = new ProjAgroContext();
 
+        
         // GET: api/OrcamentoFornecedores
-        /*  public IQueryable<OrcamentoFornecedor> GetOrcamentoFornecedor()
-          {
-              return db.OrcamentoFornecedor;
-          }*/
-        //public List<OrcamentoFornecedor> GetEnviaOrcamento()
-        public IQueryable<OrcamentoFornecedor> GetEnviaOrcamento()
+        /*   public IQueryable<OrcamentoFornecedor> GetOrcamentoFornecedor()
+           {
+               return db.OrcamentoFornecedor;
+           }*/
+        // public List<OrcamentoFornecedor> GetEnviaOrcamento()
+        [HttpGet]
+         public List<OrcamentoFornecedor> GetEnviaOrcamento()
         {
+               var context = new ProjAgroContext();
+               context.Configuration.LazyLoadingEnabled = false;
+               var lista = context.OrcamentoFornecedor.Include(m=>m.Itens).ToList();
+ 
+               foreach (OrcamentoFornecedor reg in lista)
+                {
 
-            // List<OrcamentoFornecedor> Lista = new List<OrcamentoFornecedor>();
-           // OrcamentoFornecedor Lista = db.OrcamentoFornecedor;//.ToList<OrcamentoFornecedor>();
+                        string jsonString = JsonConvert.SerializeObject( reg,   Formatting.Indented,     new JsonSerializerSettings()
+                                {         ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                                 });
+                    var client = new RestClient("http://localhost:8081");
 
-            foreach (OrcamentoFornecedor reg in db.OrcamentoFornecedor)
-            {
-                string jsonString = JsonConvert.SerializeObject( reg,   Formatting.None,     new JsonSerializerSettings()
-                            {         ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-                             });
-                var client = new RestClient("http://localhost:8081");
-                
 
-                var request = new RestRequest("/OrcamentoFornecedor", Method.POST);
-                request.AddHeader("Content-type", "application/json");
-                request.AddParameter("application/json; charset=utf-8", jsonString);
+                    var request = new RestRequest("/OrcamentoFornecedor", Method.POST);
+                    request.AddHeader("Content-type", "application/json");
+                    request.AddParameter("application/json; charset=utf-8", jsonString);
 
-                IRestResponse response = client.Execute(request);
-           
+                    IRestResponse response = client.Execute(request);
 
-            }
-            return db.OrcamentoFornecedor;
-           
+
+                }
+
+            return lista;
+
 
 
         }

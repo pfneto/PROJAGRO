@@ -17,6 +17,9 @@ namespace ProjAgroDDD.Venda.Infra.Data.Context
         public ProjAgroContext()
             : base("Name=AgroDB")
         {
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
+
         }
 
         public DbSet<Item> Item { get; set; }
